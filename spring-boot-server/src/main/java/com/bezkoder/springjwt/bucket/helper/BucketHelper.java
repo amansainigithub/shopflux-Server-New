@@ -128,6 +128,9 @@ public class BucketHelper {
                 this.productRootCategoryRepository.save(productRootCategoryData);
                 flag=true;
             }
+
+            bucketForm.setIsLinking("YES");
+            this.bucketRepository.save(bucketForm);
         }catch (Exception e)
         {
             e.printStackTrace();
@@ -166,6 +169,8 @@ public class BucketHelper {
                 this.productSubCategoryRepository.save(productSubCategoryForm);
                 flag=true;
             }
+            bucketForm.setIsLinking("YES");
+            this.bucketRepository.save(bucketForm);
         }catch (Exception e)
         {
             e.printStackTrace();
