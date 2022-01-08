@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Spring-Boot-Server-With-JWT-Token-ANGULAR-11.iml" filepath="$PROJECT_DIR$/.idea/Spring-Boot-Server-With-JWT-Token-ANGULAR-11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-boot-server/spring-boot-security-jwt.iml" filepath="$PROJECT_DIR$/spring-boot-server/spring-boot-security-jwt.iml" />
+    </modules>
+  </component>
+</project>
