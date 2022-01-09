@@ -1,5 +1,6 @@
 package com.bezkoder.springjwt.controllers;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,6 +55,17 @@ public class AuthController {
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
+		User user =  this.userRepository.findByUsername(loginRequest.getUsername()).get();
+
+		ArrayList<Role> list =  new ArrayList<Role>(user.getRoles());
+		Role role = list.get(0);
+		System.out.println(role.getName());
+
+		if(!role.getName().toString().equals("ROLE_ADMIN"))
+		{
+			throw new RuntimeException("!! BC NIKAL ---> G** MAR LUNGA TERE !!");
+		}
+
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -74,6 +86,15 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+
+		List<String> list = new ArrayList<String>(signUpRequest.getRole());
+		if(!list.get(0).toString().equals("admin"))
+		{ return ResponseEntity
+				.badRequest()
+				.body(new MessageResponse("Error: Please Enter the Valid Role!"));
+		}
+
+
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
@@ -95,7 +116,7 @@ public class AuthController {
 		Set<Role> roles = new HashSet<>();
 
 		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+			Role userRole = roleRepository.findByName(ERole.ROLE_ADMIN)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not 1 found."));
 			roles.add(userRole);
 		} else {

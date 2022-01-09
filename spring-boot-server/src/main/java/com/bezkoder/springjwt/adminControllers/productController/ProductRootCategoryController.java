@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class ProductRootCategoryController {
     private ProductRootCategoryImple productRootCategoryImple;
 
     @PostMapping(URLMappings.SAVE_PRODUCT_ROOT_CATEGORY)
-    public ResponseEntity< Map<String,Object> > saveProductRootCategory(@RequestBody ProductRootCategoryForm productRootCategoryForm)
+    public ResponseEntity< Map<String,Object> > saveProductRootCategory(@Valid @RequestBody ProductRootCategoryForm productRootCategoryForm)
     {
         HashMap<String,Object> data=new HashMap<String, Object>();
       try {

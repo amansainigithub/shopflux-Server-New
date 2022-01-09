@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -16,9 +18,12 @@ public class ProductRootCategoryForm {
     private long productRootCategoryId;
 
     @Column(unique = true,nullable = false)
+    @NotBlank
+    @Size(max = 50)
     private String rootCategoryName;
 
     @Column(length = 1000)
+
     private String description;
 
     @Column(length = 2500)
