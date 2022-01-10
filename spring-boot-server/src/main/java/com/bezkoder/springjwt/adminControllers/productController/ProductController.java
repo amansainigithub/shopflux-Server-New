@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,8 +63,9 @@ public class ProductController {
 
 
     @GetMapping(URLMappings.GET_PRODUCT_LIST)
-    public ResponseEntity<?> getProductList(HttpServletResponse response)
+    public ResponseEntity<?> getProductList(HttpServletResponse response,Principal principal)
     {
+            System.out.println("*********************************"+principal.getName());
         List<ProductForm> list = this.productServiceImple.getProductList();
         if(list != null)
         {
