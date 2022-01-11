@@ -12,6 +12,8 @@ public class URLMappings {
     //ADMIN ACCESS URL's
     public static final String AUTH_ACCESS_URL_ADMIN="/api/admin";
 
+    public static final String API_PUBLIC_BUCKET="/api/public/bucket";
+
 
     //Product Root Category
     public static final String SAVE_PRODUCT_ROOT_CATEGORY="/saveProductRootCategory";

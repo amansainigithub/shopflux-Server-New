@@ -26,7 +26,7 @@ public class AdminAuthInterceptor extends HandlerInterceptorAdapter {
         Principal principal = request.getUserPrincipal();
         User user =  this.userRepository.findByUsername(principal.getName().toString()).get();
         Set<Role> set = user.getRoles();
-        System.out.println(set.size());
+//        System.out.println(set.size());
 
       try {
           if( new ArrayList<Role>(user.getRoles()).get(0).getName().toString().equals("ROLE_ADMIN"))
