@@ -16,4 +16,6 @@ public interface Bucket  {
 
     public boolean bindFile(BucketFileLinkingForm bucketFileLinkingForm);
 
+    public boolean removeFileLinking(BucketFileLinkingForm bucketFileLinkingForm);
+
 }

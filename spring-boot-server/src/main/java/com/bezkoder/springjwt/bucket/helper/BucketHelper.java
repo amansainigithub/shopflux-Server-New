@@ -243,20 +243,44 @@ public class BucketHelper {
             return false;
          }
 
+         public boolean removeLink(BucketFileLinkingForm bucketFileLinkingForm )
+         {
+             boolean flag=false;
+            try {
+                BucketForm bucketForm = this.bucketRepository.findById(Long.parseLong(bucketFileLinkingForm.getBucketId())).get();
 
-//
-//         public boolean deleteFile(String directory,String fileName)
-//         {
-//             boolean flag=false;
-//             try {
-//                 Path path = Paths.get(directory);
-//                 File dir = new File(path.toString());
-//                 dir.delete();
-//             }
-//             catch (Exception e)
-//             {
-//                 e.printStackTrace();
-//             }
-//
-//         }
+                if(bucketForm != null)
+                {
+                    bucketForm.setIsLinking(null);
+                    this.bucketRepository.save(bucketForm);
+
+                    //GET_FILE_URL_PRODUCT_FILE_URL
+                    ProductFileUrls productFileUrls =   this.productFileUrlsRepository.findBybucketId(bucketForm.getBucketId());
+                    this.productFileUrlsRepository.deleteById(productFileUrls.getUrlId());
+                    flag=true;
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+             return flag;
+         }
+
+
+    public boolean isLinkingChecker(BucketFileLinkingForm bucketFileLinkingForm)
+    {   boolean flag=false;
+        try {
+           if(this.productFileUrlsRepository.findBybucketId(Long.parseLong(bucketFileLinkingForm.getBucketId())) != null)
+                   flag=true;
+        }
+        catch (Exception e)
+        {
+                e.printStackTrace();
+        }
+        return flag;
+
+    }
+
+
 }

@@ -11,5 +11,7 @@ public class BucketMappingUrl {
 
     public static final String BIND_FILE_WITH_URLS="/bindFile";
 
+    public static final String REMOVE_FILE_LINKING="/removeFileLinking";
+
 
 }

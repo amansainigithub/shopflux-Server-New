@@ -55,7 +55,7 @@ public class ProductForm {
     @Column(columnDefinition="tinyint(1) default 1")
     private boolean isEnabled;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "productForm",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "productForm")
     @JsonManagedReference
     private List<ProductFileUrls> productFileUrls;
 

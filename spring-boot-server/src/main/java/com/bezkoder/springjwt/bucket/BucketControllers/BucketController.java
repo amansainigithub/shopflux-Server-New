@@ -97,6 +97,24 @@ public class BucketController {
         catch (Exception e)
         {
             e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse("File Already Linking"));
+        }
+    }
+
+
+    @PutMapping(BucketMappingUrl.REMOVE_FILE_LINKING)
+    public ResponseEntity<?> removeFileLinking( @RequestBody BucketFileLinkingForm bucketFileLinkingForm  )
+    {
+        try {
+            if( this.bucketImplementations.removeFileLinking(bucketFileLinkingForm))
+                return ResponseEntity.status(HttpStatus.OK).build();
+            else
+                throw new NullPointerException(("Data Not Here !!!"));
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse("Something went wrong"));
         }
     }

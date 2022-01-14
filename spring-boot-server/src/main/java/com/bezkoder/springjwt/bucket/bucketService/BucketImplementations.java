@@ -98,7 +98,8 @@ public class BucketImplementations implements Bucket {
            {
                //Writing the Image
                long currentTime= System.currentTimeMillis();
-               String currentTimeAndImagename="BUCKET-HUB-SN-001-"+currentTime+"-"+multipartFile.getOriginalFilename().replace(" ","");
+               String currentTimeAndImagename="BUCKET-HUB-SN-001-"+currentTime+"-"+multipartFile.getSize()
+                                                +"-"+multipartFile.getOriginalFilename().replace(" ","");
 
                    try {
                        Files.copy(multipartFile.getInputStream(), path.resolve(currentTimeAndImagename));
@@ -228,10 +229,16 @@ public class BucketImplementations implements Bucket {
             //FOR PRODUCT
             else if(bucketFileLinkingForm.getCategoryHierarchyName().equals("PRODUCT"))
             {
-                if(this.bucketHelper.addProductUrls(bucketFileLinkingForm))
-                    flag=true;
+                if(!this.bucketHelper.isLinkingChecker(bucketFileLinkingForm)) {
+                    if (this.bucketHelper.addProductUrls(bucketFileLinkingForm))
+                        flag = true;
+                    else
+                        flag = false;
+                }
                 else
-                    flag=false;
+                {
+                    throw  new RuntimeException("File Already Linking");
+                }
             }
             else
             {
@@ -247,6 +254,36 @@ public class BucketImplementations implements Bucket {
         }
        return flag;
     }
+
+
+
+    //REMOVE FILE LINKING
+    @Override
+    public boolean removeFileLinking(BucketFileLinkingForm bucketFileLinkingForm) {
+        boolean flag=false;
+
+        try {
+            //FOR PRODUCT
+             if(bucketFileLinkingForm.getCategoryHierarchyName().equals("PRODUCT"))
+            {
+                if(this.bucketHelper.removeLink(bucketFileLinkingForm))
+                    flag=true;
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
+        return flag;
+    }
+
+
+
+
+
+
+
 
 
     /**
