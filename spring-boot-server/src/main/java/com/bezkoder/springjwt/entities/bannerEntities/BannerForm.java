@@ -17,10 +17,14 @@ public class BannerForm {
     @NotBlank(message = "Banner Name not be blank")
     private String bannerName;
 
+    private String defaultName;
+
     @Column(length = 500)
     private String description;
+
     @Column(length = 1000)
     private String shortDescription;
+
     @Column(length = 2500)
     private String longDescription;
 

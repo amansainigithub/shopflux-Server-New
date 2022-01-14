@@ -72,6 +72,7 @@ public class BannerImple implements Banner {
         return flag;
     }
 
+
     private BannerForm updateBannerFile(BannerForm bannerForm,MultipartFile file,Path path,String folderName)
     {
        try {
@@ -123,5 +124,28 @@ public class BannerImple implements Banner {
             return null;
         }
     }
+
+
+    @Override
+    public boolean deleteBannerById(String bannerId) {
+        boolean flag=false;
+        try {
+         BannerForm bannerForm = this.bannerRepository.findById(Long.parseLong(bannerId)).get();
+
+         if(bannerForm != null)
+         {
+             this.bucketHelper.deleteOldImage(bannerForm.getFolderName(),bannerForm.getFilename());
+             this.bannerRepository.deleteById(Long.parseLong(bannerId));
+            flag=true;
+         }
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
 
 }

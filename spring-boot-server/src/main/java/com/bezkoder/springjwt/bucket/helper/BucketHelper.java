@@ -88,7 +88,7 @@ public class BucketHelper {
 
         try {
             //getting the Real Path of the Directory
-            String filePath = new ClassPathResource("/static/"+path+"/").getFile().getPath();
+            Path filePath = Paths.get(path);
             File file=new File(filePath+ File.separator+deleteImageName);
             flag=file.delete();
         } catch (Exception e) {
@@ -242,4 +242,21 @@ public class BucketHelper {
             return true;
             return false;
          }
+
+
+//
+//         public boolean deleteFile(String directory,String fileName)
+//         {
+//             boolean flag=false;
+//             try {
+//                 Path path = Paths.get(directory);
+//                 File dir = new File(path.toString());
+//                 dir.delete();
+//             }
+//             catch (Exception e)
+//             {
+//                 e.printStackTrace();
+//             }
+//
+//         }
 }

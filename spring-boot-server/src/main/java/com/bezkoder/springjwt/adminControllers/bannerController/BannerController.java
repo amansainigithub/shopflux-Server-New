@@ -31,8 +31,8 @@ public class BannerController {
 
 
     @PostMapping(BannerUrlMapping.CREATE_BANNER)
-    public ResponseEntity<?> createBanner(@Valid @RequestBody BannerForm bannerForm)
-    {
+    public ResponseEntity<?> createBanner(@Valid @RequestBody BannerForm bannerForm) throws InterruptedException {
+        Thread.sleep(5000);
            BannerForm bannerData =  this.bannerImple.createBanner(bannerForm);
 
            if(bannerData != null )
@@ -96,6 +96,20 @@ public class BannerController {
         if(!bannerList.isEmpty())
         {
             return  ResponseEntity.ok(bannerList);
+        }
+        else
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Data Not Found Here !!!"));
+        }
+    }
+
+
+    @DeleteMapping(BannerUrlMapping.DELETE_BANNER_BY_ID)
+    public ResponseEntity<?> deleteBannerById(@PathVariable("bannerId")String bannerId )
+    {
+        if(this.bannerImple.deleteBannerById(bannerId))
+        {
+            return  ResponseEntity.ok(new MessageResponse("Deleted"));
         }
         else
         {

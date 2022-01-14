@@ -8,4 +8,6 @@ public interface Banner {
     public BannerForm createBanner(BannerForm bannerForm);
 
     public boolean uploadBannerFileByBannerId(String bannerId, MultipartFile file);
+
+    public boolean deleteBannerById(String bannerId);
 }

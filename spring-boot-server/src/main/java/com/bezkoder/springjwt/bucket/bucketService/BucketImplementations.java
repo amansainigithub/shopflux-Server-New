@@ -109,7 +109,6 @@ public class BucketImplementations implements Bucket {
                    //Final URL
                      Resource resource   =   this.load(currentTimeAndImagename ,path);
 
-                   System.out.println("RESOURCE ERROR **************");
                this.saveImageData(BucketUrl.IMAGE_ACCESS_URL+pcName,
                        BucketUrl.IMAGE_ACCESS_URL+BucketUrl.API_ACCESS_URI+pcName+"/"+currentTimeAndImagename,
                                     currentTimeAndImagename,
