@@ -68,8 +68,8 @@ public class BannerController {
             @PathVariable("fileName") String fileName
     ) {
         Resource file = bucketImplementations.loadWithImagePath(folderName,fileName);
-        System.out.println("File Name");
-        System.out.println(file.getFilename());
+//        System.out.println("File Name");
+//        System.out.println(file.getFilename());
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }

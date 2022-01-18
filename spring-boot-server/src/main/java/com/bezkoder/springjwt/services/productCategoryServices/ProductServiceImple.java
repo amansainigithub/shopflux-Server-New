@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -103,7 +104,29 @@ public class ProductServiceImple implements ProductCategory {
 
     @Override
     public List<ProductForm> getProductList() {
-       return this.productRepository.findAll();
+       List<ProductForm> list =  this.productRepository.findAll();
+
+        ArrayList<ProductForm> ishu=new ArrayList<>();
+
+       for(ProductForm productForm : list)
+       {
+
+
+          List<ProductFileUrls> li =  productForm.getProductFileUrls();
+
+          for(ProductFileUrls productFileUrls : li)
+          {
+              productFileUrls.getFileUrl();
+              System.out.println("*************************************************");
+              System.out.println(productFileUrls.getFileUrl());
+
+          }
+
+          productForm.setProductFileUrls(li);
+          ishu.add(productForm);
+       }
+
+       return ishu;
     }
 
 
@@ -204,14 +227,30 @@ public class ProductServiceImple implements ProductCategory {
 
     @Override
     public boolean setProductThumbnail(String productId, String bucketId) {
+        boolean flag=false;
+
     ProductForm productForm   =    this.productRepository.findById(Long.parseLong(productId)).get();
     BucketForm bucketForm  =    this.bucketRepository.findById(Long.parseLong(bucketId)).get();
 
-        productForm.setThumbnailUrl(bucketForm.getFileUrl());
-
-    if(this.productRepository.save(productForm) != null)
-        return true;
-       return false;
+   try {
+           if(bucketForm.getImageType().equals("video/mp4"))
+           {
+               productForm.setVideoThumbnailUrl(bucketForm.getFileUrl());
+               if(this.productRepository.save(productForm) != null)
+                   flag=true;
+           }
+           else if(bucketForm.getImageType().equals("image/jpeg"))
+           {
+               productForm.setThumbnailUrl(bucketForm.getFileUrl());
+               if(this.productRepository.save(productForm) != null)
+                   flag=true;
+           }
+       }
+       catch (Exception e)
+       {
+            e.printStackTrace();
+       }
+       return flag;
     }
 
 

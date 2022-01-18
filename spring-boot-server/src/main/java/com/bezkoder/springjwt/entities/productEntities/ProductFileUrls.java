@@ -22,7 +22,7 @@ public class ProductFileUrls {
 
     private String productId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JsonBackReference
     private ProductForm productForm;
 

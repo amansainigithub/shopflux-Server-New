@@ -36,6 +36,7 @@ public class ProductForm {
     private String  rootCategoryId;
     private String  savePrice;
     private String thumbnailUrl;
+    private String videoThumbnailUrl;
     private String  savePricePercentage;
     private String  sellPrice;
     private String  shortDescription;
