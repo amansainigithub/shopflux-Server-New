@@ -241,9 +241,27 @@ public class ProductServiceImple implements ProductCategory {
            }
            else if(bucketForm.getImageType().equals("image/jpeg"))
            {
-               productForm.setThumbnailUrl(bucketForm.getFileUrl());
-               if(this.productRepository.save(productForm) != null)
-                   flag=true;
+               List<ProductFileUrls > productFileUrls = productForm.getProductFileUrls();
+
+               for(ProductFileUrls filesData : productFileUrls)
+               {
+                   if(String.valueOf(filesData.getBucketId()).equals(bucketId.trim()))
+                   {
+                       filesData.setImageThumbnail("YES");
+                       this.productFileUrlsRepository.save(filesData);
+                       flag=true;
+                   }
+                   else
+                   {
+                       filesData.setImageThumbnail("NO");
+                       this.productFileUrlsRepository.save(filesData);
+                       flag=true;
+                   }
+               }
+
+//               productForm. setThumbnailUrl(bucketForm.getFileUrl());
+//               if(this.productRepository.save(productForm) != null)
+//                   flag=true;
            }
        }
        catch (Exception e)

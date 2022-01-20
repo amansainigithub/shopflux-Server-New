@@ -88,12 +88,12 @@ public class PublicAuthController {
     @PostMapping("/publicSignUp")
     public ResponseEntity<?> SignUpUser(@Valid @RequestBody SignupRequest signUpRequest) {
 
-        List<String> list = new ArrayList<String>(signUpRequest.getRole());
-        if(!list.get(0).toString().equals("user"))
-        { return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Please Enter the Valid Role!"));
-        }
+//        List<String> list = new ArrayList<String>(signUpRequest.getRole());
+//        if(!list.get(0).toString().equals("user"))
+//        { return ResponseEntity
+//                    .badRequest()
+//                    .body(new MessageResponse("Error: Please Enter the Valid Role!"));
+//        }
 
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity

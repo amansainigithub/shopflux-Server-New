@@ -22,6 +22,8 @@ public class ProductFileUrls {
 
     private String productId;
 
+    private String imageThumbnail="NO";
+
     @ManyToOne
     @JsonBackReference
     private ProductForm productForm;
