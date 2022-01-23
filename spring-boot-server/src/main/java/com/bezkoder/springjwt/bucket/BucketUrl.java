@@ -10,6 +10,7 @@ public class BucketUrl {
     public static final String ROOT="ROOT";
     public static final String SUB="SUB";
     public static final String PRODUCT="PRODUCT";
+    public static final String FINAL_CATEGORY="FINALCATEGORY";
 
 
 

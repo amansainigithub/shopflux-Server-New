@@ -15,8 +15,9 @@ public interface ProductCategory {
 
     public ProductForm getProductById(long productId );
 
-    public boolean setProductThumbnail(String productId,String bucketid );
+    public boolean setProductThumbnail(String productId,String bucketId );
 
+    public boolean setThumbnailMainPage(String productId,String bucketId );
 
 
 }

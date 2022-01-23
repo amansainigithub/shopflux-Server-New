@@ -32,6 +32,8 @@ public class ProductController {
     @PostMapping(URLMappings.SAVE_PRODUCT)
     public ResponseEntity<?> saveProduct(@RequestBody ProductForm productForm,HttpServletResponse response)
     {
+        System.out.println(productForm.toString());
+        System.out.println("****************************************************************");
         ProductForm product= this.productServiceImple.saveProduct(productForm);
 
         if(product != null)
@@ -113,6 +115,24 @@ public class ProductController {
                                                  HttpServletResponse response)
     {
         if(this.productServiceImple.setProductThumbnail(productId,bucketId))
+        {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        else
+        {
+            response.setHeader("message","Something went wrong ! ERROR.");
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
+
+    }
+
+
+    @PostMapping(URLMappings.SET_THUMBNAIL_MAIN_PAGE)
+    public ResponseEntity<?> setThumbnailMainPage(@PathVariable("productId")String productId,
+                                                 @PathVariable("bucketId") String bucketId,
+                                                 HttpServletResponse response)
+    {
+        if(this.productServiceImple.setThumbnailMainPage(productId,bucketId))
         {
             return ResponseEntity.status(HttpStatus.OK).build();
         }

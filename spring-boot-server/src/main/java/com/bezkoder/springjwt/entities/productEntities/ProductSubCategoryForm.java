@@ -49,6 +49,10 @@ public class ProductSubCategoryForm {
 
     @OneToMany(mappedBy = "productSubCategoryForm",cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<ProductForm> productCategoryForm;
+    private List<ProductFinalCateogoryForm> productFinalCateogoryForms;
+
+//    @OneToMany(mappedBy = "productSubCategoryForm",cascade = CascadeType.ALL)
+//    @JsonIgnore
+//    private List<ProductForm> productCategoryForm;
 
 }

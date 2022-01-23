@@ -3,16 +3,10 @@ package com.bezkoder.springjwt.services.productCategoryServices;
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.bezkoder.springjwt.bucket.bucketRepository.BucketRepository;
 import com.bezkoder.springjwt.bucket.model.BucketForm;
-import com.bezkoder.springjwt.entities.productEntities.ProductFileUrls;
-import com.bezkoder.springjwt.entities.productEntities.ProductForm;
-import com.bezkoder.springjwt.entities.productEntities.ProductRootCategoryForm;
-import com.bezkoder.springjwt.entities.productEntities.ProductSubCategoryForm;
+import com.bezkoder.springjwt.entities.productEntities.*;
 import com.bezkoder.springjwt.helper.RandomNumber;
 import com.bezkoder.springjwt.interfaces.productCategoryInterfaces.ProductCategory;
-import com.bezkoder.springjwt.repositories.productCategoryRepository.ProductFileUrlsRepository;
-import com.bezkoder.springjwt.repositories.productCategoryRepository.ProductRepository;
-import com.bezkoder.springjwt.repositories.productCategoryRepository.ProductRootCategoryRepository;
-import com.bezkoder.springjwt.repositories.productCategoryRepository.ProductSubCategoryRepository;
+import com.bezkoder.springjwt.repositories.productCategoryRepository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,11 +34,15 @@ public class ProductServiceImple implements ProductCategory {
     @Autowired
     private BucketRepository bucketRepository;
 
+    @Autowired
+    private ProductFinalCategoryRepository productFinalCategoryRepository;
+
     @Override
     public ProductForm saveProduct(ProductForm productForm) {
 
        try {
 
+           System.out.println(productForm.toString());
 
            //VALIDATION
            if(!this.productValidation(productForm))
@@ -52,16 +50,22 @@ public class ProductServiceImple implements ProductCategory {
                return null;
            }
 
-           //SET SUB-PRODUCT-ID [HF]
-           productForm.setSubCategoryId(String.valueOf(productForm.getProductSubCategoryForm().getProductSubCategoryId()));
+//           //SET FINAL CATEGORY ID
+           productForm.setFinalCategoryId(String.valueOf(productForm.getProductFinalCategoryForm().getProductFinalCategoryId()));
 
-           //SET ROOT-PRODUCT-ID [BY ID]
-          ProductSubCategoryForm rootData = this.productSubCategoryRepository.
-                                              findById(productForm.getProductSubCategoryForm().getProductSubCategoryId())
-                                              .get();
 
-          //SET ROOT CATEGORY ID TO PRODUCT-DATA
-          productForm.setRootCategoryId(String.valueOf(rootData.getProductRootCategoryForm().getProductRootCategoryId()));
+
+           //GET[FINAL-CATEGORY] AND SET SUB CATEGORY DATA
+          ProductFinalCateogoryForm  productFinalCategoryData = this.productFinalCategoryRepository.
+                                                                  findById(Long.parseLong(productForm.getFinalCategoryId()))
+                                                                  .get();
+
+          //SET SUB CATEGORY ID TO PRODUCT-DATA
+          productForm.setSubCategoryId(String.valueOf(productFinalCategoryData.getProductSubCategoryForm().getProductSubCategoryId()));
+
+          productForm.setRootCategoryId(String.valueOf(productFinalCategoryData.getProductSubCategoryForm()
+                                        .getProductRootCategoryForm()
+                                        .getProductRootCategoryId()));
 
            //Get UNIQUE SKU NUMBER
         ProductForm skuProductForm = this.getUniqueSKU_Number(productForm);
@@ -271,6 +275,33 @@ public class ProductServiceImple implements ProductCategory {
        return flag;
     }
 
+    @Override
+    public boolean setThumbnailMainPage(String productId, String bucketId) {
+        boolean flag=false;
+
+        ProductForm productForm   =    this.productRepository.findById(Long.parseLong(productId)).get();
+        BucketForm bucketForm  =    this.bucketRepository.findById(Long.parseLong(bucketId)).get();
+
+        try {
+            if(bucketForm.getImageType().equals("video/mp4"))
+            {
+                productForm.setVideoThumbnailUrl(bucketForm.getFileUrl());
+                if(this.productRepository.save(productForm) != null)
+                    flag=true;
+            }
+            else if(bucketForm.getImageType().equals("image/jpeg"))
+            {
+               productForm. setThumbnailUrl(bucketForm.getFileUrl());
+               if(this.productRepository.save(productForm) != null)
+                   flag=true;
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return flag;
+    }
 
 
     public boolean productValidation(ProductForm productForm)

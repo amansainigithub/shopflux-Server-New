@@ -3,14 +3,8 @@ package com.bezkoder.springjwt.bucket.helper;
 import com.bezkoder.springjwt.bucket.bucketRepository.BucketRepository;
 import com.bezkoder.springjwt.bucket.model.BucketFileLinkingForm;
 import com.bezkoder.springjwt.bucket.model.BucketForm;
-import com.bezkoder.springjwt.entities.productEntities.ProductFileUrls;
-import com.bezkoder.springjwt.entities.productEntities.ProductForm;
-import com.bezkoder.springjwt.entities.productEntities.ProductRootCategoryForm;
-import com.bezkoder.springjwt.entities.productEntities.ProductSubCategoryForm;
-import com.bezkoder.springjwt.repositories.productCategoryRepository.ProductFileUrlsRepository;
-import com.bezkoder.springjwt.repositories.productCategoryRepository.ProductRepository;
-import com.bezkoder.springjwt.repositories.productCategoryRepository.ProductRootCategoryRepository;
-import com.bezkoder.springjwt.repositories.productCategoryRepository.ProductSubCategoryRepository;
+import com.bezkoder.springjwt.entities.productEntities.*;
+import com.bezkoder.springjwt.repositories.productCategoryRepository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -45,6 +39,9 @@ public class BucketHelper {
 
     @Autowired
     private ProductSubCategoryRepository productSubCategoryRepository;
+
+    @Autowired
+    private ProductFinalCategoryRepository productFinalCategoryRepository;
 
     public String getDate()
     {
@@ -167,6 +164,47 @@ public class BucketHelper {
             {
                 productSubCategoryForm.setVideoUrl(bucketForm.getFileUrl());
                 this.productSubCategoryRepository.save(productSubCategoryForm);
+                flag=true;
+            }
+            bucketForm.setIsLinking("YES");
+            this.bucketRepository.save(bucketForm);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            flag=false;
+        }
+        return flag;
+    }
+
+
+    //FINAL-C URLS UPDATED
+    public boolean updatedFinalCategoryFilesUrls(BucketFileLinkingForm bucketFileLinkingForm)
+    {
+        BucketForm bucketForm=null;
+        boolean flag=false;
+        try{
+            ProductFinalCateogoryForm productFinalCateogoryForm =
+                    this.productFinalCategoryRepository.findById(Long.parseLong(bucketFileLinkingForm.getCategoryId())).get();
+
+
+            bucketForm =  this.bucketRepository.findById(Long.parseLong(bucketFileLinkingForm.getBucketId())).get();
+
+            if(productFinalCateogoryForm == null || bucketForm == null)
+            {
+                throw new NullPointerException("Data Not found Here !!!");
+            }
+
+            if(bucketFileLinkingForm.getFileTemplateName().equals("IMAGE"))
+            {
+                productFinalCateogoryForm.setImageUrl(bucketForm.getFileUrl());
+                this.productFinalCategoryRepository.save(productFinalCateogoryForm);
+                flag=true;
+
+            }
+            else if (bucketFileLinkingForm.getFileTemplateName().equals("VIDEO"))
+            {
+                productFinalCateogoryForm.setVideoUrl(bucketForm.getFileUrl());
+                this.productFinalCategoryRepository.save(productFinalCateogoryForm);
                 flag=true;
             }
             bucketForm.setIsLinking("YES");

@@ -41,6 +41,7 @@ public class ProductForm {
     private String  sellPrice;
     private String  shortDescription;
     private String subCategoryId;
+    private String finalCategoryId;
     private String  productLength;
     private String  productWidth;
     private String productHeight;
@@ -60,8 +61,8 @@ public class ProductForm {
     @JsonManagedReference
     private List<ProductFileUrls> productFileUrls;
 
-    @ManyToOne
-    private ProductSubCategoryForm productSubCategoryForm;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ProductFinalCateogoryForm productFinalCategoryForm;
 
     private String creatingDate;
 

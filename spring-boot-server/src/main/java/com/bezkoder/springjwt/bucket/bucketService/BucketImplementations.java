@@ -74,6 +74,12 @@ public class BucketImplementations implements Bucket {
             return this.list;
         }
 
+        if(pcName.equals(BucketUrl.FINAL_CATEGORY))
+        {
+            this.uploadImages(list, "folderPath", pcName, pcId,path);
+            return this.list;
+        }
+
         if(pcName.equals(BucketUrl.PRODUCT))
         {
             this.uploadImages(list, "folderPath", pcName, pcId,path);
@@ -221,6 +227,15 @@ public class BucketImplementations implements Bucket {
            else if(bucketFileLinkingForm.getCategoryHierarchyName().equals("SUB"))
             {
                 if(this.bucketHelper.updatedSubFilesUrls(bucketFileLinkingForm))
+                    flag=true;
+                else
+                    flag=false;
+            }
+
+            //FOR FINALCATEGORY
+            else if(bucketFileLinkingForm.getCategoryHierarchyName().equals("FINALCATEGORY"))
+            {
+                if(this.bucketHelper.updatedFinalCategoryFilesUrls(bucketFileLinkingForm))
                     flag=true;
                 else
                     flag=false;
