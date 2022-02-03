@@ -16,7 +16,6 @@ public class ProductForm {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long productId;
 
-    @Column(unique = true)
     private String productName;
 
     private String  description;
