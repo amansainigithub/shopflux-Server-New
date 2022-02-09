@@ -52,9 +52,20 @@ public class ProductForm {
     private String sizeL;
     private String sizeXL;
     private String sizeXXL;
+    private String size3XL;
+
+
+    private String uk4;
+    private String uk5;
+    private String uk6;
+    private String uk7;
+    private String uk8;
+    private String uk9;
+    private String uk10;
+
 
     @Column(columnDefinition="tinyint(1) default 1")
-    private boolean isEnabled;
+    private boolean productStatus;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "productForm")
     @JsonManagedReference
