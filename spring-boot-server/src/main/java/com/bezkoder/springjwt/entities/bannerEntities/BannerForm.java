@@ -39,7 +39,6 @@ public class BannerForm {
 
     private String folderName;
 
-
-
+    private String bannerType;
 
 }

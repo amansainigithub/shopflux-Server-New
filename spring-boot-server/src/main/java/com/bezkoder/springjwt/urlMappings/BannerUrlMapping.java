@@ -10,5 +10,10 @@ public class BannerUrlMapping {
     public final static String DELETE_BANNER_BY_ID = "/deleteBannerById/{bannerId}";
 
 
+    public final static String ADD_BANNER_TYPE = "/addBannerType";
+    public final static String GET_BANNER_TYPE_LIST = "/getBannerTypeList";
+
+
+
 
 }

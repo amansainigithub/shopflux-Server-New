@@ -32,9 +32,7 @@ public class BannerController {
 
     @PostMapping(BannerUrlMapping.CREATE_BANNER)
     public ResponseEntity<?> createBanner(@Valid @RequestBody BannerForm bannerForm) throws InterruptedException {
-        Thread.sleep(5000);
            BannerForm bannerData =  this.bannerImple.createBanner(bannerForm);
-
            if(bannerData != null )
            {
                return  ResponseEntity.ok(new MessageResponse("Banner Successfully Created !!!"));
