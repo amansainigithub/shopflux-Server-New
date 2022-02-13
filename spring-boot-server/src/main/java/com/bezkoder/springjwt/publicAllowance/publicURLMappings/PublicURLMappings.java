@@ -1,4 +1,4 @@
-package com.bezkoder.springjwt.publicAllowance.urlMappings;
+package com.bezkoder.springjwt.publicAllowance.publicURLMappings;
 
 import org.springframework.stereotype.Component;
 
