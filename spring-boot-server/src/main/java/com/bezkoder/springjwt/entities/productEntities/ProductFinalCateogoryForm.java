@@ -28,6 +28,12 @@ public class ProductFinalCateogoryForm {
     @Column(length = 5000)
     private String longDescription;
 
+    @Column(length = 5000)
+    private String subCategoryId;
+
+    @Column(length = 500)
+    private String subCateName;
+
     private String imageUrl;
 
     private String videoUrl;

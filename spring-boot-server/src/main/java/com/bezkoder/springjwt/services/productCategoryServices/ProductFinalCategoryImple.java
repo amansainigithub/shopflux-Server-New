@@ -32,6 +32,9 @@ public class ProductFinalCategoryImple implements ProductFinalCategory {
             list.add(productFinalCateogoryForm);
             productSubCategoryForm.setProductFinalCateogoryForms(list);
 
+            productFinalCateogoryForm.setSubCategoryId(String.valueOf(id));
+            productFinalCateogoryForm.setSubCateName(productSubCategoryForm.getSubCategoryName());
+
             ProductSubCategoryForm productSubCateg= this.productSubCategoryRepository.save(productSubCategoryForm);
             return productFinalCateogoryForm;
         }

@@ -27,6 +27,10 @@ public class ProductSubCategoryImple  implements ProductSubCategory {
          ProductRootCategoryForm productRootCategoryForm= this.productRootCategoryRepository.findById(id).get();
          productSubCategoryForm.setProductRootCategoryForm(productRootCategoryForm);
 
+         //Set root category to sub category form
+         productSubCategoryForm.setRootCategoryId(String.valueOf(id));
+
+
          ProductSubCategoryForm productSubCategor= this.productSubCategoryRepository.save(productSubCategoryForm);
          return productSubCategor;
         }

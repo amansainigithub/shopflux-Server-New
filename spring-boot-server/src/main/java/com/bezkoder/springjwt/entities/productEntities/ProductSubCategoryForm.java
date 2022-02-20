@@ -11,6 +11,7 @@ import java.util.List;
 @Entity
 public class ProductSubCategoryForm {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long productSubCategoryId;
@@ -26,6 +27,12 @@ public class ProductSubCategoryForm {
 
     @Column(length = 5000)
     private String longDescription;
+
+    @Column(length = 5000)
+    private String rootCategoryId;
+
+
+    private String subCategoryId;
 
     private String imageUrl;
 

@@ -5,13 +5,12 @@ import com.bezkoder.springjwt.entities.productEntities.ProductForm;
 import com.bezkoder.springjwt.publicAllowance.publicServices.ProductImplePublic;
 import com.bezkoder.springjwt.publicAllowance.publicURLMappings.ProductUrlMappingPublic;
 import com.bezkoder.springjwt.publicAllowance.publicURLMappings.PublicURLMappings;
+import com.bezkoder.springjwt.repositories.productCategoryRepository.ProductFinalCategoryRepository;
+import com.bezkoder.springjwt.repositories.productCategoryRepository.ProductSubCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,10 +24,39 @@ public class ProductControllerPublic {
     @Autowired
     private BucketRepository bucketRepository;
 
+
     @GetMapping(ProductUrlMappingPublic.GET_PRODUCT_LIST_PUBLIC)
-    public ResponseEntity<?> getProductList_public()
-    {
+    public ResponseEntity<?> getProductList_public() throws InterruptedException {
+
         List<ProductForm> list = this.productImplePublic.getProductList();
+        if(list != null)
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(list);
+        }
+        else
+        {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
+    }
+
+    @GetMapping(ProductUrlMappingPublic.GET_PRODUCT_BY_FINAL_CATEGORY)
+    public ResponseEntity<?> getProductByFinalCategory() throws InterruptedException {
+
+        List<ProductForm> list = this.productImplePublic.getProductByFinalCategory();
+        if(list != null)
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(list);
+        }
+        else
+        {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
+    }
+
+    @GetMapping(ProductUrlMappingPublic.GET_PRODUCT_BY_FINAL_CATEGORY_NAME_PUBLIC)
+    public ResponseEntity<?> getProductListByFinalCategoryName(@PathVariable(required = true)String finalCategoryName ) throws InterruptedException {
+
+        List<ProductForm> list = this.productImplePublic.getProductListByFinalCategoryName(finalCategoryName);
         if(list != null)
         {
             return ResponseEntity.status(HttpStatus.OK).body(list);

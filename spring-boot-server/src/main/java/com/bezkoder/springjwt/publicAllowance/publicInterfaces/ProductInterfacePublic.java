@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface ProductInterfacePublic {
     public List<ProductForm> getProductList();
+
+    public List<ProductForm> getProductByFinalCategory();
+
+    List<ProductForm> getProductListByFinalCategoryName(String finalCategoryName);
 }
