@@ -75,4 +75,17 @@ public class ProductImplePublic implements ProductInterfacePublic {
        }
        return productList;
     }
+
+    @Override
+    public ProductForm getProductByProductId(String productId) {
+       ProductForm productForm = null;
+       try {
+           productForm =  this.productRepository.findById(Long.parseLong(productId)).get();
+       }
+       catch (Exception e)
+       {
+            e.printStackTrace();
+       }
+       return productForm;
+    }
 }
