@@ -103,10 +103,10 @@ public class CartImpleServicePublic implements CartInterfacePublic {
 
     //UPDATE CART CATCHER
     @Override
-    public boolean updateCartCatcher(List<CartCatcherPaidForm> cartCatcherPaidForms, HttpServletRequest request) {
+    public boolean updateCartCatcher(List<CartCatcherPaidForm> cartCatcherPaidForms, HttpServletRequest request,String orderId,String paymentId) {
         boolean flag=false;
         try {
-               if( updateAndSaveCartCatcher(cartCatcherPaidForms,request))
+               if( updateAndSaveCartCatcher(cartCatcherPaidForms,request,orderId,paymentId))
                {
                   flag=true;
                }
@@ -119,7 +119,7 @@ public class CartImpleServicePublic implements CartInterfacePublic {
     }
 
 
-    public boolean updateAndSaveCartCatcher(List<CartCatcherPaidForm> cartCatcherPaidForms, HttpServletRequest request)
+    public boolean updateAndSaveCartCatcher(List<CartCatcherPaidForm> cartCatcherPaidForms, HttpServletRequest request ,String orderId,String paymentId)
     {
        boolean flag= false;
 
@@ -137,6 +137,8 @@ public class CartImpleServicePublic implements CartInterfacePublic {
                 cartCatcherPaidForm.setUserName(userName);
                 cartCatcherPaidForm.setAddress(user.getAddressLine1());
                 cartCatcherPaidForm.setMobile(user.getMobile());
+                cartCatcherPaidForm.setRazorOrderId(orderId);
+                cartCatcherPaidForm.setRazorPaymentId(paymentId);
                 this.cartPaidRepo.save(cartCatcherPaidForm);
 
             }

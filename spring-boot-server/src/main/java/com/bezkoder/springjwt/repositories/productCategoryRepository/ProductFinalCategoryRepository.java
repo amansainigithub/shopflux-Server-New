@@ -13,4 +13,5 @@ public interface ProductFinalCategoryRepository extends JpaRepository<ProductFin
    public  List<ProductFinalCateogoryForm> findBySubCategoryId(String subCategoryId);
 
    public  ProductFinalCateogoryForm findByfinalCategoryName(String finalCategoryName);
+
 }

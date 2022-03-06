@@ -40,10 +40,13 @@ public class CartController {
 
       }
 
-    @PostMapping("/updateCartCatcher")
-    public ResponseEntity<?> updateCartCatcher(@RequestBody List<CartCatcherPaidForm> cartCatcherPaidForms, HttpServletRequest request) throws InterruptedException, RazorpayException {
+    @PostMapping("/updateCartCatcher/{orderId}/{paymentId}")
+    public ResponseEntity<?> updateCartCatcher(@RequestBody List<CartCatcherPaidForm> cartCatcherPaidForms,
+                                               @PathVariable String orderId,
+                                               @PathVariable String paymentId,
+                                               HttpServletRequest request) throws InterruptedException, RazorpayException {
 
-        boolean result =  this.cartImpleServicePublic.updateCartCatcher(cartCatcherPaidForms,request);
+        boolean result =  this.cartImpleServicePublic.updateCartCatcher(cartCatcherPaidForms,request,orderId,paymentId);
         if(result)
         {
             return   ResponseEntity.ok(new MessageResponse("success"));

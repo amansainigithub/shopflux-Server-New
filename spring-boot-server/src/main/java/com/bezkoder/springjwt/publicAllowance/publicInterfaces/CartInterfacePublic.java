@@ -10,5 +10,5 @@ import java.util.List;
 public interface CartInterfacePublic {
     public Order cartCatcherService(List<CartCatcherForm> cartCatcherList , HttpServletRequest request);
 
-  public boolean updateCartCatcher(List<CartCatcherPaidForm> cartCatcherPaidForms, HttpServletRequest request);
+  public boolean updateCartCatcher(List<CartCatcherPaidForm> cartCatcherPaidForms, HttpServletRequest request,String orderId,String paymentId);
 }

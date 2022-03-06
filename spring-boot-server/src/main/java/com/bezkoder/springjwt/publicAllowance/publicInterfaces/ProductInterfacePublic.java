@@ -12,4 +12,6 @@ public interface ProductInterfacePublic {
     List<ProductForm> getProductListByFinalCategoryName(String finalCategoryName);
 
     ProductForm getProductByProductId(String productId);
+
+    List<ProductForm> getProductByFinalCategoryId(String finalCategoryId);
 }

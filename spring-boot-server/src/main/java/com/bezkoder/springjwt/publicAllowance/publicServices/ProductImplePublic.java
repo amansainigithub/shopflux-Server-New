@@ -88,4 +88,18 @@ public class ProductImplePublic implements ProductInterfacePublic {
        }
        return productForm;
     }
+
+
+    @Override
+    public List<ProductForm> getProductByFinalCategoryId(String finalCategoryId) {
+        List<ProductForm> productList = null;
+        try {
+            productList  = this.productRepository.findByFinalCategoryId(finalCategoryId.trim());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return productList;
+    }
 }

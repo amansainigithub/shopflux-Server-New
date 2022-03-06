@@ -88,4 +88,20 @@ public class ProductControllerPublic {
 
 
 
+    @GetMapping(ProductUrlMappingPublic.GET_PRODUCT_BY_FINAL_CATEGORY_ID)
+    public ResponseEntity<?> getProductByFinalCategoryId(@PathVariable String finalCategoryId ) throws InterruptedException {
+
+        List<ProductForm> list = this.productImplePublic.getProductByFinalCategoryId(finalCategoryId);
+        if(list != null)
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(list);
+        }
+        else
+        {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
+    }
+
+
+
 }

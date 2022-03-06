@@ -24,5 +24,11 @@ public class CartCatcherPaidForm {
     private String address;
     private String mobile;
 
+    private String razorOrderId;
+    private String razorPaymentId;
+    private String razorSignatureId;
+
+    private String deliveryDate;
+
     private Date currrentDate = new Date();
 }

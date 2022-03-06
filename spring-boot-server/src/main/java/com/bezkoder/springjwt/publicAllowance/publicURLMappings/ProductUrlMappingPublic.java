@@ -13,4 +13,6 @@ public class ProductUrlMappingPublic {
 
     public static final String GET_PRODUCT_BY_PRODUCT_ID="getProductByProductId/{productId}";
 
+    public static final String GET_PRODUCT_BY_FINAL_CATEGORY_ID="getProductByFinalCategoryId/{finalCategoryId}";
+
 }
