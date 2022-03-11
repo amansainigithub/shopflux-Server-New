@@ -29,6 +29,13 @@ public class CartCatcherPaidForm {
     private String razorSignatureId;
 
     private String deliveryDate;
+    private String deliveryDateFormat;
+
+    private String deliveryOrderId;
+    private String deliveryOrderCompanyName;
+
+    @Column(columnDefinition = "varchar(255) default 'N'")
+    private String deliveryStatus;
 
     private Date currrentDate = new Date();
 }

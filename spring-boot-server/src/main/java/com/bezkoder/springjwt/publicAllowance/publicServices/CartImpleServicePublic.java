@@ -140,6 +140,9 @@ public class CartImpleServicePublic implements CartInterfacePublic {
                 cartCatcherPaidForm.setRazorOrderId(orderId);
                 cartCatcherPaidForm.setRazorPaymentId(paymentId);
                 this.cartPaidRepo.save(cartCatcherPaidForm);
+                System.out.println("*********************************************");
+                System.out.println("cart catcher update successfully");
+                System.out.println("*********************************************");
 
             }
             flag=true;
