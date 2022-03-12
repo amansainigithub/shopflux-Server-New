@@ -136,6 +136,7 @@ public class CartImpleServicePublic implements CartInterfacePublic {
                 cartCatcherPaidForm.setUserId(String.valueOf(id));
                 cartCatcherPaidForm.setUserName(userName);
                 cartCatcherPaidForm.setAddress(user.getAddressLine1());
+                cartCatcherPaidForm.setDeliveryStatus("N");
                 cartCatcherPaidForm.setMobile(user.getMobile());
                 cartCatcherPaidForm.setRazorOrderId(orderId);
                 cartCatcherPaidForm.setRazorPaymentId(paymentId);

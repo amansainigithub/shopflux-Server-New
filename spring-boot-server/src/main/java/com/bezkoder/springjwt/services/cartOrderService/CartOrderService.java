@@ -55,8 +55,15 @@ public class CartOrderService implements CartOrderInterface {
                 this.changeDateFormat(cartCatcherPaidForm.getDeliveryDate(), cartCatcherPaidForm);
                 ccpf =    this.cartPaidRepo.save(cartCatcherPaidForm);
             }
+            else if(cartCatcherPaidForm.getDeliveryStatus().equals("Y"))
+            {
+                cartCatcherPaidForm.setDeliveryStatus("Y");
+                ccpf =    this.cartPaidRepo.save(cartCatcherPaidForm);
+            }
             else
             {
+                this.changeDateFormat(cartCatcherPaidForm.getDeliveryDate(), cartCatcherPaidForm);
+                cartCatcherPaidForm.setDeliveryStatus("R");
                 ccpf =    this.cartPaidRepo.save(cartCatcherPaidForm);
             }
 
