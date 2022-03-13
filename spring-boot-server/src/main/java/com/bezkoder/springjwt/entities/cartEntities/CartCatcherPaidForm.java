@@ -19,6 +19,7 @@ public class CartCatcherPaidForm {
     private String productQuantity;
     private String url;
     private String userName;
+    private String email;
     private String userId;
     private String status;
     private String address;

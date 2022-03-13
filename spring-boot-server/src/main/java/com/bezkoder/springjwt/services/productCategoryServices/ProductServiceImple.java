@@ -80,6 +80,8 @@ public class ProductServiceImple implements ProductCategory {
         //SET UPDATED DATE AND TIME
           usnProductForm.setLastUpdatedDate(this.getCurrentDateAndTime());
 
+          //CALCULATE OFF PRICE AND SET TO PRODUCT Obj...
+            this.offPrice(productForm.getMrpPrice(),productForm.getSellPrice(),productForm);
 
            return this.productRepository.save(usnProductForm);
        }
@@ -88,6 +90,19 @@ public class ProductServiceImple implements ProductCategory {
            e.printStackTrace();
            return null;
        }
+    }
+
+    public void offPrice(String mrpPrice,String sellPrice ,ProductForm productForm)
+    {
+        try {
+            int result = 0;
+            result = ((Integer.parseInt(sellPrice) - Integer.parseInt(mrpPrice)) * 100) / Integer.parseInt(mrpPrice);
+            productForm.setSavePrice(String.valueOf(result));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override
