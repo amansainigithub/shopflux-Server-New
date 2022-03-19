@@ -19,7 +19,7 @@ public class EmailSender {
 
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("ishumessi2@gmail.com", "code@#Air");
+                return new PasswordAuthentication("ishumessi2@gmail.com", "stiyzsvxyrlzbyhc");
             }
         });
         Message msg = new MimeMessage(session);

@@ -33,8 +33,8 @@ public class ProductController {
     public ResponseEntity<?> saveProduct(@RequestBody ProductForm productForm,HttpServletResponse response)
     {
         System.out.println("****************************************************************");
-        System.out.println(productForm.getUk10());
-        System.out.println(productForm.getUk4());
+//        System.out.println(productForm.getUk10());
+//        System.out.println(productForm.getUk4());
 
         System.out.println("****************************************************************");
         ProductForm product= this.productServiceImple.saveProduct(productForm);

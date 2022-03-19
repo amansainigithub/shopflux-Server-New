@@ -6,4 +6,5 @@ import org.springframework.stereotype.Component;
 public class CartUrlMappings {
     public static final String GET_PAID_ORDER_PUBLIC="getPaidOrder_public/{currentUser}";
 
+
 }

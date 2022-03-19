@@ -21,6 +21,7 @@ public class CartCatcherForm {
     private String userName;
     private String userId;
     private String status;
+    private String productSize;
 
     private Date currrentDate = new Date();
 

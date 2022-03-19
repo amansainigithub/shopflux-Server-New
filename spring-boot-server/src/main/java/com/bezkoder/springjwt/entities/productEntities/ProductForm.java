@@ -1,7 +1,5 @@
 package com.bezkoder.springjwt.entities.productEntities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -52,8 +50,7 @@ public class ProductForm {
     private String sizeL;
     private String sizeXL;
     private String sizeXXL;
-    private String size3XL;
-
+    private String sizeXXXL;
 
     private String uk4;
     private String uk5;
@@ -77,6 +74,11 @@ public class ProductForm {
     private String creatingDate;
 
     private String lastUpdatedDate;
+
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "productForm")
+    @JsonManagedReference
+    private List<ProductSizeSetForProductForm> productSizeSetForProductForms;
 
 
 

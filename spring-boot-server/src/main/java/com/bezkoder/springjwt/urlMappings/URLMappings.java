@@ -48,5 +48,12 @@ public class URLMappings {
     public static final String SET_THUMBNAIL_MAIN_PAGE="/setThumbNailMainPage/{productId}/{bucketId}";
 
 
+    //PRODUCT SIZE
+    public static final String CREATE_PRODUCT_SIZE = "/createProductSize";
+    public static final String UPDATE_PRODUCT_SIZE = "/updateProductSize";
+    public static final String DELETE_PRODUCT_SIZE = "/deleteProductSize/{id}";
+    public static final String GET_PRODUCT_DETAILS_SIZE_BY_ID = "/getProductDetailsSizeById/{sizeId}";
+    public static final String GET_PRODUCT_SIZE_LIST = "/getProductSizeList";
+
 
 }

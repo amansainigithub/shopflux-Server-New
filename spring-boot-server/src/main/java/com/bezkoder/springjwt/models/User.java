@@ -63,6 +63,9 @@ public class User {
 	@Size(max = 500)
 	private String mobile;
 
+	@Size(max = 500)
+	private String status;
+
 
 	public User() {
 	}
@@ -186,5 +189,13 @@ public class User {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

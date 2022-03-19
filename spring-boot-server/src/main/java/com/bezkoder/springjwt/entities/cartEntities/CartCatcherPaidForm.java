@@ -24,6 +24,7 @@ public class CartCatcherPaidForm {
     private String status;
     private String address;
     private String mobile;
+    private String productSize;
 
     private String razorOrderId;
     private String razorPaymentId;
