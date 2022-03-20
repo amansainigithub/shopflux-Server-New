@@ -5,11 +5,11 @@ import com.bezkoder.springjwt.helper.email.EmailSender;
 import com.bezkoder.springjwt.models.ERole;
 import com.bezkoder.springjwt.models.Role;
 import com.bezkoder.springjwt.models.User;
-import com.bezkoder.springjwt.payload.request.LoginRequest;
-import com.bezkoder.springjwt.payload.request.OtpVerify;
-import com.bezkoder.springjwt.payload.request.SignupRequest;
+import com.bezkoder.springjwt.payload.request.*;
 import com.bezkoder.springjwt.payload.response.JwtResponse;
 import com.bezkoder.springjwt.payload.response.MessageResponse;
+import com.bezkoder.springjwt.publicAllowance.publicServices.PublicAuthService;
+import com.bezkoder.springjwt.publicAllowance.publicURLMappings.AuthUrlMappings;
 import com.bezkoder.springjwt.publicAllowance.publicURLMappings.PublicURLMappings;
 import com.bezkoder.springjwt.repository.RoleRepository;
 import com.bezkoder.springjwt.repository.UserRepository;
@@ -54,10 +54,15 @@ public class PublicAuthController {
     PasswordEncoder encoder;
 
     @Autowired
+    private PublicAuthService publicAuthService;
+
+    @Autowired
     JwtUtils jwtUtils;
 
+    private User user;
 
-    @PostMapping("/publicSignIn")
+
+    @PostMapping(AuthUrlMappings.PUBLIC_SIGN_IN)
     public ResponseEntity<?> signIn(@Valid @RequestBody LoginRequest loginRequest) {
 
         User user =  this.userRepository.findByEmail(loginRequest.getUsername()).get();
@@ -93,7 +98,9 @@ public class PublicAuthController {
     }
 
 
-    @PostMapping("/publicSignUp")
+
+
+    @PostMapping(AuthUrlMappings.PUBLIC_SIGN_UP)
     public ResponseEntity<?> SignUpUser(@Valid @RequestBody SignupRequest signUpRequest , HttpServletRequest request) {
 
 //        List<String> list = new ArrayList<String>(signUpRequest.getRole());
@@ -150,9 +157,10 @@ public class PublicAuthController {
             });
         }
 
-        user.setStatus("false");
+        //user.setStatus("false");
         user.setRoles(roles);
-        userRepository.save(user);
+        this.user = user;
+     //   userRepository.save(user);
         boolean result = this.emailSenderForRegistrationTime(signUpRequest.getEmail(),request);
         if(result)
         {
@@ -172,7 +180,6 @@ public class PublicAuthController {
 
        try {
            int otp =RandomNumber.getRandomNumber();
-           System.out.println("OTP ::::::::::::: " + otp);
            String content =  email + "OTP is  : " + otp+" : PLEASE VERIFY OTP";
            if(EmailSender.sendEmail(email.trim(),content))
            {
@@ -189,18 +196,18 @@ public class PublicAuthController {
         return flag;
     }
 
-    @PostMapping("/otpVerify")
+    @PostMapping(AuthUrlMappings.OTP_VERIFY)
     public ResponseEntity<?> otpVerifier(@RequestBody OtpVerify otpVerify, HttpServletRequest request) throws InterruptedException {
         try {
-            User user =   this.userRepository.findByEmail(otpVerify.getEmail()).get();
+           // User user =   this.userRepository.findByEmail(otpVerify.getEmail()).get();
 
-            if(otpVerify.getEmail().trim().equals(user.getEmail()))
+            if(otpVerify.getEmail().trim().equals(this.user.getEmail()))
             {
                 String sessionOtp  =  (String)session.getAttribute(otpVerify.getEmail().trim());
                 if(sessionOtp.equals(otpVerify.getOtp()))
                 {
-                    user.setStatus("true");
-                    this.userRepository.save(user);
+                    this.user.setStatus("true");
+                    this.userRepository.save(this.user);
                     return ResponseEntity.ok(new MessageResponse("Registration Success"));
                 }
                 else
@@ -215,6 +222,40 @@ public class PublicAuthController {
         }
         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
     }
+
+    @PostMapping(AuthUrlMappings.EMAIL_VALIDATOR)
+    public ResponseEntity<?> emailValidator(@Valid @RequestBody EmailValidator emailValidator,HttpServletRequest request) {
+
+        if(this.publicAuthService.existsBYUserEmail(emailValidator.getEmail(),request))
+        {
+            return ResponseEntity.ok(new MessageResponse("OTP Sent to your : Email ID"));
+        }
+        else
+        {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
+    }
+
+    @PostMapping(AuthUrlMappings.CHANGE_PASSWORD_BY_EMAIL_AND_OTP)
+    public ResponseEntity<?> changePasswordByEmailAndOtp(@Valid @RequestBody ChangePasswordForm changePasswordForm, HttpServletRequest request) {
+
+        if(!changePasswordForm.getPassword().equals(changePasswordForm.getConformPassword()))
+        {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
+
+        if(this.publicAuthService.changePasswordByEmailAndOtp(changePasswordForm,request))
+        {
+            return ResponseEntity.ok(new MessageResponse("Password Update Success"));
+        }
+        else
+        {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
+
+    }
+
+
 
 
 

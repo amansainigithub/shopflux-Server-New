@@ -12,6 +12,14 @@ public class RandomNumber {
     }
 
 
+    public static int getRandomNumberByDigits(int digits)
+    {
+        Random random=new Random();
+        return  random.nextInt(digits);
+
+    }
+
+
     public static String getRandomNumberDynamically(int n)
     {
         String AlphaNumericString =  "0123456789";
