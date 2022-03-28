@@ -15,7 +15,7 @@ public class ProductForm {
     private long productId;
 
     private String productName;
-
+    private String productDefaultName;
     private String  description;
     private String  discount;
     private boolean  discountAvailable=false;
@@ -43,6 +43,8 @@ public class ProductForm {
     private String  productWidth;
     private String productHeight;
     private String productWeight;
+    private String color;
+
 
     private String sizeXS;
     private String sizeS;

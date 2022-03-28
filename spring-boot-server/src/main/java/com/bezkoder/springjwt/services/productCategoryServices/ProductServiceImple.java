@@ -45,10 +45,10 @@ public class ProductServiceImple implements ProductCategory {
          //  System.out.println(productForm.toString());
 
            //VALIDATION
-           if(!this.productValidation(productForm))
-           {
-               return null;
-           }
+//           if(!this.productValidation(productForm))
+//           {
+//               return null;
+//           }
 
 //           //SET FINAL CATEGORY ID
            productForm.setFinalCategoryId(String.valueOf(productForm.getProductFinalCategoryForm().getProductFinalCategoryId()));

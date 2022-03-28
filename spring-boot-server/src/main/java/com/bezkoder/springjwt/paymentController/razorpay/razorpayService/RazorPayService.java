@@ -9,6 +9,7 @@ import com.bezkoder.springjwt.publicAllowance.publicServices.CartImpleServicePub
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,10 @@ public class RazorPayService {
     @Autowired
     private CartImpleServicePublic cartImpleServicePublic;
 
+    private final String razorpay_key="rzp_test_YdBfMCwPkwhqi3";
+    private final String razorpay_secret="aNHb9Wm4g5XSjfYgrXoZUlpi";
+
+
     public Order createRazorPayOrder(Map<String, String> data, HttpServletRequest request) throws RazorpayException {
 
          String amount    =    data.get("amount");
@@ -35,7 +40,7 @@ public class RazorPayService {
 
        // System.out.println(amount+" : "+currency +" : "+ receipt);
 
-        RazorpayClient razorpay = new RazorpayClient("rzp_test_YdBfMCwPkwhqi3", "aNHb9Wm4g5XSjfYgrXoZUlpi");
+        RazorpayClient razorpay = new RazorpayClient(razorpay_key, razorpay_secret);
 
         JSONObject orderRequest = new JSONObject();
         orderRequest.put("amount", Integer.parseInt(amount)*100); // amount in the smallest currency unit
@@ -99,4 +104,28 @@ public class RazorPayService {
     }
 
 
+    public RazorPayOrder razorpayGetOrderDetailsByOrderId(String orderId) {
+
+        RazorPayOrder razorPayOrder=null;
+       try {
+           RazorpayClient razorpay = new RazorpayClient(razorpay_key, razorpay_secret);
+           Order order = razorpay.Orders.fetch(orderId);
+            razorPayOrder=new RazorPayOrder();
+            razorPayOrder.setAmount(order.get("amount").toString());
+           razorPayOrder.setAmountPaid(order.get("amount_paid").toString());
+           razorPayOrder.setAmountDue(order.get("amount_due").toString());
+           razorPayOrder.setCurrency(order.get("currency"));
+           razorPayOrder.setReceipt(order.get("receipt"));
+           razorPayOrder.setOrderId(order.get("orderId"));
+           razorPayOrder.setReceipt(order.get("receipt"));
+           razorPayOrder.setStatus(order.get("status"));
+           razorPayOrder.setAttempts(order.get("attempts").toString());
+
+       }
+       catch (Exception e)
+       {
+           e.printStackTrace();
+       }
+       return razorPayOrder;
+    }
 }

@@ -12,4 +12,6 @@ public interface CartOrderInterface {
     public CartCatcherPaidForm getPaidCurrentOrderBYId(String orderId);
 
     CartCatcherPaidForm updateCurrentPaidOrder(CartCatcherPaidForm cartCatcherPaidForm);
+
+    List<CartCatcherPaidForm> getCurrentPaidOrdersByStatus(String status);
 }

@@ -87,6 +87,8 @@ public class CartOrderService implements CartOrderInterface {
         return ccpf;
     }
 
+
+
     //EMAIL-TRIGGER
     public boolean emailTrigger(CartCatcherPaidForm cartCatcherPaidForm)
     {
@@ -208,6 +210,20 @@ public class CartOrderService implements CartOrderInterface {
             e.printStackTrace();
         }
 
+    }
+
+
+    @Override
+    public List<CartCatcherPaidForm> getCurrentPaidOrdersByStatus(String status) {
+        List<CartCatcherPaidForm> conditionalList = null;
+        try {
+            conditionalList =   this.cartPaidRepo.findByDeliveryStatus(status);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return conditionalList;
     }
 
 

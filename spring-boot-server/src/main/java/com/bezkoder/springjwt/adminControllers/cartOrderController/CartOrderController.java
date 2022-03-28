@@ -70,4 +70,24 @@ public class CartOrderController {
 
 
 
+    @GetMapping(CartOrdersUrlMappings.GET_CURRENT_PAID_ORDERS_BY_STATUS)
+    public ResponseEntity<?> getCurrentPaidOrdersByStatus(@PathVariable String status)
+    {
+        List<CartCatcherPaidForm>  list = this.cartOrderService.getCurrentPaidOrdersByStatus(status);
+        if(list != null)
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(list);
+        }
+        else
+        {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
+    }
+
+
+
+
+
+
+
 }

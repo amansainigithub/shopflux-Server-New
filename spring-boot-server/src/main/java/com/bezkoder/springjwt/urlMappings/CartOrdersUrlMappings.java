@@ -8,6 +8,8 @@ public class CartOrdersUrlMappings {
     public static final String GET_CURRENT_PAID_ORDERS="/getCurrentPaidOrders";
     public static final String GET_CURRENT_PAID_ORDERS_BY_ID="/getCurrentPaidOrdersById/{orderId}";
     public static final String UPDATE_CURRENT_PAID_ORDERS="/updateCurrentPaidOrder";
+    public static final String GET_CURRENT_PAID_ORDERS_BY_STATUS="/getCurrentPaidOrdersByStatus/{status}";
+
 
 
     public static final String SAVE_PRODUCT_SIZE_SET_FOR_PRODUCT = "/saveProductSizeSetForProduct/{productId}";

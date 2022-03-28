@@ -11,5 +11,5 @@ import java.util.List;
 public interface CartPaidRepo extends JpaRepository<CartCatcherPaidForm,Long> {
 
     public List<CartCatcherPaidForm> findByUserName(String userName);
-
+    public List<CartCatcherPaidForm> findByDeliveryStatus(String status);
 }

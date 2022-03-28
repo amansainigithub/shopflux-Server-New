@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -31,6 +32,21 @@ public class UpdateUserAddressController {
         }
         else {
             return   ResponseEntity.ok(user);
+        }
+
+    }
+
+
+    @GetMapping(UserUrlMappingPublic.GET_CURRENT_USER_ADDRESS)
+    public ResponseEntity<?> getCurrentUserAddress(@PathVariable String userName,HttpServletRequest request)  {
+
+        UpdateAddressForm address = this.userServicePublic.getCurrentUserAddress(userName,request);
+        if(address != null)
+        {
+            return   ResponseEntity.ok(address);
+        }
+        else {
+            return   ResponseEntity.ok(new MessageResponse("Some-thing went Wrong"));
         }
 
     }
