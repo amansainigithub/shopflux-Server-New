@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface BannerRepository extends JpaRepository<BannerForm,Long> {
-
     public List<BannerForm> findByBannerType(String bannerType);
 
 }
